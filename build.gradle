@@ -1,0 +1,35 @@
+plugins {
+    id 'java'
+    id 'application'
+}
+
+group = 'com.mrsalwater'
+version = '1.0.0'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'com.mrsalwater:Kapteyn:1.0.0'
+    implementation 'org.json:json:20190722'
+    implementation 'com.formdev:flatlaf:0.27'
+    testImplementation 'junit:junit:4.12'
+}
+
+jar {
+    manifest {
+        attributes('Implementation-Title': project.name,
+                'Implementation-Version': project.version,
+                'Main-Class': 'com.mrsalwater.kapteyn.ui.Main')
+    }
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+}
+
+application {
+    mainClassName = 'com.mrsalwater.kapteyn.ui.Main'
+}
